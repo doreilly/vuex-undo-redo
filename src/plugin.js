@@ -17,11 +17,13 @@ module.exports = {
       created() {
         if (this.$store) {
           this.$store.subscribe(mutation => {
-            if (mutation.type !== EMPTY_STATE && this.ignoreMutations.indexOf(mutation.type) === -1) {
-              this.done.push(mutation);
-            }
-            if (this.newMutation) {
-              this.undone = [];
+            if (this.ignoreMutations.indexOf(mutation.type) === -1) {
+              if (mutation.type !== EMPTY_STATE) {
+                this.done.push(mutation);
+              }
+              if (this.newMutation) {
+                this.undone = [];
+              }
             }
           });
         }
